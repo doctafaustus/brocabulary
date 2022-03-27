@@ -1,0 +1,17 @@
+.card :global {
+  border: solid 1px #000;
+  margin-bottom: 20px;
+
+  .date {
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .definition {
+    margin-bottom: 12px;
+  }
+  
+  .sentence {
+    font-style: italic;
+  }
+}
