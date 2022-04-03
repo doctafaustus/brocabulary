@@ -6,6 +6,8 @@ import styles from '/components/card/card.module.scss';
 export default function Card({ date }) {
   const wordObj = words.find(word => word.date === date);
 
+  console.log('wordObj', wordObj);
+
   return (
     <div className={styles.card}>
       <h2 className="name">{ wordObj.name }</h2>
