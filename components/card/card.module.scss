@@ -1,13 +1,15 @@
 .card :global {
   border: solid 1px #000;
   margin-bottom: 20px;
+  width: 450px;
 
   .date {
     font-style: italic;
     font-size: 14px;
   }
   
-  .definition {
+  .definition,
+  .sentence {
     margin-bottom: 12px;
   }
   
