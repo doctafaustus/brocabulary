@@ -7,9 +7,8 @@ export default function FirstPost() {
 
   return (
     <main>
-      <Nav />
-
-        <h1>All Vocab Words</h1>
+      <Nav /> 
+      <h1>All Vocab Words</h1>
       {
         words.map(word => {
           return <Card word={word} key={word.name} />

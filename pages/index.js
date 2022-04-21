@@ -16,14 +16,11 @@ export default function Home() {
 
       <main>
         <Nav />
-
         <h1>Today's Brocabulary Word:</h1>
 
         {[...Array(wordDays)].map((item, i) =>
           <Card date={getDate({ daysBehind: i })} key={i} />
         )}
-
-
 
       </main>
     </>

@@ -14,13 +14,15 @@ export default function Card({ word, date }) {
       <div className="sentence" 
         dangerouslySetInnerHTML={{__html: wordObj.sentence}}
       ></div>
-      <Image
-        src={wordObj.image}
-        className="word-image"
-        height={320}
-        width={320}
-        alt={wordObj.name}
-      />
+      <div className="image-container">
+        <Image
+          src={wordObj.image}
+          className="word-image"
+          height={233}
+          width={288}
+          alt={wordObj.name}
+        />
+      </div>
     </div>
   );
 }

@@ -1,7 +1,15 @@
 .card :global {
-  border: solid 1px #000;
   margin-bottom: 20px;
-  width: 450px;
+  width: 350px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+
+  .name {
+    margin: 0 0 20px 0;
+    border-bottom: solid 1px #000;
+  }
 
   .date {
     font-style: italic;
@@ -10,10 +18,15 @@
   
   .definition,
   .sentence {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
+    line-height: 22px;
   }
   
   .sentence {
     font-style: italic;
+  }
+
+  .image-container {
+    text-align: center;
   }
 }
