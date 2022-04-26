@@ -8,8 +8,10 @@ export default function Card({ word, date }) {
 
   return (
     <div className={styles.card}>
-      <h2 className="name">{ wordObj.name }</h2>
-      <div className="date">{ wordObj.date }</div>
+      <div className="name-and-date">
+        <h2 className="name">{ wordObj.name }</h2>
+        <div className="date">{ wordObj.date }</div>
+      </div>
       <div className="definition">{ wordObj.definition }</div>
       <div className="sentence" 
         dangerouslySetInnerHTML={{__html: wordObj.sentence}}
