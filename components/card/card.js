@@ -4,6 +4,8 @@ import styles from '/components/card/card.module.scss';
 
 
 export default function Card({ word, date }) {
+  console.log({date});
+
   const wordObj = word || words.find(word => word.date === date);
 
   return (
