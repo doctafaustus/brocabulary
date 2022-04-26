@@ -42,5 +42,7 @@ export default function Home() {
 function getDate({ daysBehind }) {
   const date = new Date();
   const PrevDateTime = date.setDate(date.getDate() - daysBehind);
+
+  console.log('?', new Date(PrevDateTime).toLocaleDateString())
   return new Date(PrevDateTime).toLocaleDateString();
 }
