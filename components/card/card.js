@@ -1,13 +1,19 @@
 import Image from 'next/image';
 import words from '/data/words.js';
 import styles from '/components/card/card.module.scss';
+import { useState } from 'react';
 
 
 export default function Card({ word, date }) {
+  const [saved, setSaved] = useState(false);
+
   const wordObj = word || words.find(word => word.date === date);
 
   return (
-    <div className={styles.card}>
+    <div 
+      className={`${styles.card} ${ saved ? 'saved' : '' }`}
+      onDoubleClick={() => setSaved(!saved)}
+    >
       <div className="name-and-date">
         <h2 className="name">{ wordObj.name }</h2>
         <div className="date">{ wordObj.date }</div>
@@ -28,3 +34,5 @@ export default function Card({ word, date }) {
     </div>
   );
 }
+
+
