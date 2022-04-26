@@ -33,6 +33,13 @@ const words = [
     definition: 'to ridicule',
     sentence: 'The player <b>derided</b> the referee after missing an obvious penalty.',
     image: 'https://i.ibb.co/5YTR1VK/5-Deride.png'
+  },
+  {
+    name: 'deride2',
+    date: '4/26/2022',
+    definition: 'to ridicule',
+    sentence: 'The player <b>derided</b> the referee after missing an obvious penalty.',
+    image: 'https://i.ibb.co/5YTR1VK/5-Deride.png'
   }
 ];
 
