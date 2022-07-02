@@ -1,14 +1,14 @@
 const words = [
   {
     name: 'menagerie',
-    date: '6/2/2022',
+    date: '6/28/2022',
     definition: 'a collection of wild animals kept in captivity for exhibition',
     sentence: 'It seems the creature escaped from the private <b>menagerie</b>.',
     image: 'https://i.ibb.co/CsmG2Wd/1-Menagerie-transparent.png'
   },
   {
     name: 'extol',
-    date: '6/3/2022',
+    date: '6/29/2022',
     definition: 'praise enthusiastically',
     sentence: 'The judges <b>extolled</b> the dish from the young home cook.',
     image: 'https://i.ibb.co/hZTVSFt/2-Extol-transparent.png'
@@ -22,21 +22,21 @@ const words = [
   },
   {
     name: 'null',
-    date: '6/5/2022',
+    date: '6/30/2022',
     definition: 'having no legal force',
     sentence: 'The marriage of Jack and Trixie was declared <b>null</b> after it was discovered they were 2nd cousins.',
     image: 'https://i.ibb.co/p4gq0cN/4-Null-1.png'
   },
   {
     name: 'deride',
-    date: '6/6/2022',
+    date: '7/1/2022',
     definition: 'to ridicule',
     sentence: 'The player <b>derided</b> the referee after missing an obvious penalty.',
     image: 'https://i.ibb.co/5YTR1VK/5-Deride.png'
   },
   {
     name: 'deride2',
-    date: '6/7/2022',
+    date: '7/2/2022',
     definition: 'to ridicule',
     sentence: 'The player <b>derided</b> the referee after missing an obvious penalty.',
     image: 'https://i.ibb.co/5YTR1VK/5-Deride.png'

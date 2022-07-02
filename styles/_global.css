@@ -16,7 +16,8 @@ main {
   margin-bottom: 40px;
 }
 
-.cards-container {
+.cards-container,
+.main-card-container {
   margin: 0 auto;
 }
 

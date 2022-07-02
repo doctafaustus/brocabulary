@@ -1,12 +1,10 @@
 import Head from 'next/head';
 import Card from '/components/card/card.js';
 import Nav from '/components/nav/nav.js';
-import Link from 'next/link';
+import Quiz from '/components/quiz/quiz.js';
 
 
 export default function Home() {
-  const wordDays = 5;
-
   return (
     <>
       <Head>
@@ -18,17 +16,13 @@ export default function Home() {
       <main>
         <Nav />
         <h1 className="main-title">Word of the Day</h1>
+        <h2 className="todays-date">{ getDate({ daysBehind: 0 }) }</h2>
 
-        <section className="cards-container">
-          {[...Array(wordDays)].map((item, i) =>
-            <Card date={getDate({ daysBehind: i })} key={i} />
-          )}
+        <section className="main-card-container">
+          <Card date={getDate({ daysBehind: 0 })} />
         </section>
 
-        <Link href="/all-words">
-          <a className="see-more">See More</a>
-        </Link>
-
+        <Quiz />
       </main>
     </>
   );
