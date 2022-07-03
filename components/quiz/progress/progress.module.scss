@@ -1,0 +1,40 @@
+.progress-container :global {
+  progress {
+    margin-bottom: 20px;
+    width: calc(100% - 20px);
+    height: 5px;
+    appearance: none;
+  
+    &::-webkit-progress-bar {
+      background-color: #d0d0d0;
+    }
+  
+    &::-webkit-progress-value {
+      transition: width .85s ease-in-out;
+      background-color: #1d75dc;
+    }
+  }
+
+  .progress-notches {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: -35px;
+  
+    .notch {
+      background-image: url('/icons/icon-question-mark.png');
+      height: 20px;
+      width: 20px;
+      background-size: 20px 20px;
+      background-repeat: no-repeat;
+  
+      &.correct {
+        background-image: url('/icons/icon-check.png');
+      }
+  
+      &.incorrect {
+        background-image: url('/icons/icon-x.png');
+      }
+    }
+  }
+}

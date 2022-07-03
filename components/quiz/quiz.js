@@ -1,6 +1,8 @@
 import styles from '/components/quiz/quiz.module.scss';
 import words from '/data/words.js';
 import { useState, useEffect } from 'react';
+import Progress from '/components/quiz/progress/progress.js';
+
 
 const questionsLength = 5;
 
@@ -30,9 +32,8 @@ export default function Quiz() {
   }, []);
 
   useEffect(() => {
-
     // Change question
-    if (game.internalQuestionNum > 1) {
+    if (game.internalQuestionNum > 1 && game.internalQuestionNum <= questionsLength) {
       console.log('Resetting...');
       setTimeout(() => {
         setGame({ ...game, quizWords: getQuizWords() });
@@ -85,12 +86,7 @@ export default function Quiz() {
     <section className={styles.quiz}>
       <h1>Daily Quiz</h1>
 
-      <progress max="100" value={progress.completion}></progress>
-      <div className="progress-notches">
-        {game.results.map((item, i) => 
-          <div className={`notch ${getResultClass(item)}`} key={i}></div>
-        )}
-      </div>
+      <Progress progress={progress} game={game} getResultClass={getResultClass} />
 
       <div className="question-title">
         Which word means: <span className="question-definition">{getAnswerWord()?.definition}</span>
