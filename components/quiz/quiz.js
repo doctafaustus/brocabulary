@@ -4,43 +4,51 @@ import { useState, useEffect } from 'react';
 
 function getQuizWords() {
   const limit = 4;
-  const quizWords = [...words]
+  const newWords = JSON.parse(JSON.stringify(words))
     .map(x => ({ x, r: Math.random() }))
     .sort((a, b) => a.r - b.r)
     .map(a => a.x)
     .slice(0, limit);
 
-  const answerWord = quizWords[Math.floor(Math.random() * quizWords.length)];
+  const answerWord = newWords[Math.floor(Math.random() * newWords.length)];
   answerWord.isAnswer = true;
 
-  return quizWords;
+  return newWords;
 }
 
 
 export default function Quiz() {
-  const [game, setGame] = useState({ questionNum: 1 });
-  const [quizWords, setQuizWords] = useState([]);
+const [game, setGame] = useState({ internalQuestionNum: 1, quizWords: [] });
 
   // Needed to prevent React hydration error
   useEffect(() => {
-    setQuizWords(getQuizWords());
+    setGame({ ...game, quizWords: getQuizWords() });
   }, []);
+
+  useEffect(() => {
+    if (game.internalQuestionNum > 1) {
+      console.log('Resetting...');
+      setTimeout(() => {
+        setGame({ ...game, quizWords: getQuizWords() });
+      }, 2000);
+    }
+  }, [...Object.keys(game).map(key => game.internalQuestionNum)]);
 
   function processAnswer(e) {
     const selectedWordText = e.target.textContent;
-    const selectedWordObj = quizWords.find(word => word.name === selectedWordText);
+    const selectedWordObj = game.quizWords.find(word => word.name === selectedWordText);
     selectedWordObj.selected = true;
     
-    setQuizWords([...quizWords]);
+    setGame({ ...game, quizWords: game.quizWords });
     setTimeout(showResults, 750);
   }
 
   function getSelectedWord() {
-    return quizWords.find(word => word.selected === true);
+    return game.quizWords.find(word => word.selected === true);
   }
 
   function getAnswerWord() {
-    return quizWords.find(word => word.isAnswer);
+    return game.quizWords.find(word => word.isAnswer);
   }
 
   function hasAnswered() {
@@ -52,7 +60,7 @@ export default function Quiz() {
     const isCorrect = (selectedWord.name === getAnswerWord().name) ? true : false;
 
     selectedWord.isCorrect = isCorrect;
-    setQuizWords([...quizWords]);
+    setGame({ ...game, quizWords: game.quizWords, internalQuestionNum: game.internalQuestionNum + 1 });
   }
 
   function getResultClass(word) {
@@ -69,7 +77,7 @@ export default function Quiz() {
       </div>
 
       <div className="answers">
-        {quizWords.map((word, i) =>
+        {game.quizWords.map((word, i) =>
           <button 
             className={`answer ${word.selected ? 'selected' : ''} ${getResultClass(word)}`} 
             key={i}
@@ -80,7 +88,7 @@ export default function Quiz() {
           </button>
         )}
       </div>
-      <h6>{ JSON.stringify(getAnswerWord()) }</h6>
+      <h6>{ JSON.stringify(game.questionNum) }</h6>
     </section>
   );
 }
