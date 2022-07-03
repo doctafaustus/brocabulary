@@ -35,11 +35,18 @@ const words = [
     image: 'https://i.ibb.co/5YTR1VK/5-Deride.png'
   },
   {
-    name: 'deride2',
+    name: 'bambino',
     date: '7/2/2022',
-    definition: 'to ridicule2',
-    sentence: 'The player <b>derided</b> the referee after missing an obvious penalty.',
-    image: 'https://i.ibb.co/5YTR1VK/5-Deride.png'
+    definition: 'a small child or baby',
+    sentence: 'The uncle playfully asked “When can I hold the little <b>bambino</b>!?”',
+    image: 'https://i.ibb.co/PGKMBF1/6-Bambino-50.png'
+  },
+  {
+    name: 'paucity',
+    date: '7/3/2022',
+    definition: ' an insufficient amount',
+    sentence: 'The <b>paucity</b> of shovels meant that some volunteers had to plant trees by hand.',
+    image: 'https://i.ibb.co/p3sgY0t/7-Paucity-28.png'
   }
 ];
 

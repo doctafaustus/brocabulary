@@ -2,6 +2,8 @@ import styles from '/components/quiz/quiz.module.scss';
 import words from '/data/words.js';
 import { useState, useEffect } from 'react';
 
+const questionsLength = 5;
+
 function getQuizWords() {
   const limit = 4;
   const newWords = JSON.parse(JSON.stringify(words))
@@ -18,7 +20,9 @@ function getQuizWords() {
 
 
 export default function Quiz() {
-const [game, setGame] = useState({ internalQuestionNum: 1, quizWords: [] });
+  const [progress, setProgress] = useState({ completion: 0, results: [...Array(questionsLength)] });
+  const [game, setGame] = useState({ internalQuestionNum: 1, quizWords: [] });
+
 
   // Needed to prevent React hydration error
   useEffect(() => {
@@ -30,6 +34,7 @@ const [game, setGame] = useState({ internalQuestionNum: 1, quizWords: [] });
       console.log('Resetting...');
       setTimeout(() => {
         setGame({ ...game, quizWords: getQuizWords() });
+        setProgress({ completion: ((game.internalQuestionNum - 1) / (questionsLength - 1)) * 100});
       }, 2000);
     }
   }, [...Object.keys(game).map(key => game.internalQuestionNum)]);
@@ -71,7 +76,15 @@ const [game, setGame] = useState({ internalQuestionNum: 1, quizWords: [] });
 
   return (
     <section className={styles.quiz}>
-      <progress max="100" value="70"></progress>
+      <h1>Daily Quiz</h1>
+
+      <progress max="100" value={progress.completion}></progress>
+      <div className="progress-notches">
+        {[...Array(questionsLength)].map((item, i) => 
+          <div className="notch" key={i}></div>
+        )}
+      </div>
+
       <div className="question-title">
         Which word means: <span className="question-definition">{getAnswerWord()?.definition}</span>
       </div>
