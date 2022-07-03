@@ -6,7 +6,7 @@ import Progress from '/components/quiz/progress/progress.js';
 
 const questionsLength = 5;
 
-function getQuizWords() {
+function getQuizWords(shownWords) {
   const limit = 4;
   const newWords = JSON.parse(JSON.stringify(words))
     .map(x => ({ x, r: Math.random() }))
@@ -14,17 +14,30 @@ function getQuizWords() {
     .map(a => a.x)
     .slice(0, limit);
 
-  const answerWord = newWords[Math.floor(Math.random() * newWords.length)];
-  answerWord.isAnswer = true;
+  const answerWord = getRandomItem(newWords);
 
+  if (shownWords?.includes(answerWord.name)) {
+    return getQuizWords(shownWords);
+  } 
+
+  answerWord.isAnswer = true;
   return newWords;
+}
+
+
+function getRandomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)]; 
 }
 
 
 export default function Quiz() {
   const [progress, setProgress] = useState({ completion: 0 });
-  const [game, setGame] = useState({ internalQuestionNum: 1, quizWords: [], results: [...Array(questionsLength)] });
-
+  const [game, setGame] = useState({
+    internalQuestionNum: 1,
+    quizWords: [],
+    results: [...Array(questionsLength)],
+    shownWords: []
+  });
 
   // Needed to prevent React hydration error
   useEffect(() => {
@@ -36,9 +49,9 @@ export default function Quiz() {
     if (game.internalQuestionNum > 1 && game.internalQuestionNum <= questionsLength) {
       console.log('Resetting...');
       setTimeout(() => {
-        setGame({ ...game, quizWords: getQuizWords() });
+        setGame({ ...game, quizWords: getQuizWords(game.shownWords) });
         setProgress({ completion: ((game.internalQuestionNum - 1) / (questionsLength - 1)) * 100});
-      }, 2000);
+      }, 3000);
     }
   }, [...Object.keys(game).map(key => game.internalQuestionNum)]);
 
@@ -65,15 +78,21 @@ export default function Quiz() {
 
   function showResults() {
     const selectedWord = getSelectedWord();
-    const isCorrect = (selectedWord.name === getAnswerWord().name) ? true : false;
+    const answerWord = getAnswerWord();
+
+    const isCorrect = (selectedWord.name === answerWord.name) ? true : false;
     const resultIndex = game.internalQuestionNum - 1;
+    const shownWords = [...game.shownWords];
 
     selectedWord.isCorrect = isCorrect;
     game.results[resultIndex] = isCorrect;
+    answerWord.revealAsAnswer = true;
+    shownWords.push(answerWord.name);
 
     setGame({ 
       ...game,
-      internalQuestionNum: game.internalQuestionNum + 1
+      internalQuestionNum: game.internalQuestionNum + 1,
+      shownWords
     });
   }
 
@@ -95,7 +114,9 @@ export default function Quiz() {
       <div className="answers">
         {game.quizWords.map((word, i) =>
           <button 
-            className={`answer ${word.selected ? 'selected' : ''} ${getResultClass(word.isCorrect)}`} 
+            className={
+              `answer ${word.selected ? 'selected' : ''} ${getResultClass(word.isCorrect)} ${word.revealAsAnswer ? 'correct' : ''}
+            `} 
             key={i}
             onClick={processAnswer}
             disabled={hasAnswered() ? true : false}
