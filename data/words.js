@@ -37,7 +37,7 @@ const words = [
   {
     name: 'deride2',
     date: '7/2/2022',
-    definition: 'to ridicule',
+    definition: 'to ridicule2',
     sentence: 'The player <b>derided</b> the referee after missing an obvious penalty.',
     image: 'https://i.ibb.co/5YTR1VK/5-Deride.png'
   }
