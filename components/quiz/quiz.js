@@ -20,8 +20,8 @@ function getQuizWords() {
 
 
 export default function Quiz() {
-  const [progress, setProgress] = useState({ completion: 0, results: [...Array(questionsLength)] });
-  const [game, setGame] = useState({ internalQuestionNum: 1, quizWords: [] });
+  const [progress, setProgress] = useState({ completion: 0 });
+  const [game, setGame] = useState({ internalQuestionNum: 1, quizWords: [], results: [...Array(questionsLength)] });
 
 
   // Needed to prevent React hydration error
@@ -30,6 +30,8 @@ export default function Quiz() {
   }, []);
 
   useEffect(() => {
+
+    // Change question
     if (game.internalQuestionNum > 1) {
       console.log('Resetting...');
       setTimeout(() => {
@@ -63,16 +65,21 @@ export default function Quiz() {
   function showResults() {
     const selectedWord = getSelectedWord();
     const isCorrect = (selectedWord.name === getAnswerWord().name) ? true : false;
+    const resultIndex = game.internalQuestionNum - 1;
 
     selectedWord.isCorrect = isCorrect;
-    setGame({ ...game, quizWords: game.quizWords, internalQuestionNum: game.internalQuestionNum + 1 });
+    game.results[resultIndex] = isCorrect;
+
+    setGame({ 
+      ...game,
+      internalQuestionNum: game.internalQuestionNum + 1
+    });
   }
 
-  function getResultClass(word) {
-    if (typeof word.isCorrect !== 'boolean') return '';
-    return (word.isCorrect) ? 'correct' : 'incorrect';
+  function getResultClass(result) {
+    if (typeof result !== 'boolean') return '';
+    return (result) ? 'correct' : 'incorrect';
   }
-
 
   return (
     <section className={styles.quiz}>
@@ -80,8 +87,8 @@ export default function Quiz() {
 
       <progress max="100" value={progress.completion}></progress>
       <div className="progress-notches">
-        {[...Array(questionsLength)].map((item, i) => 
-          <div className="notch" key={i}></div>
+        {game.results.map((item, i) => 
+          <div className={`notch ${getResultClass(item)}`} key={i}></div>
         )}
       </div>
 
@@ -92,7 +99,7 @@ export default function Quiz() {
       <div className="answers">
         {game.quizWords.map((word, i) =>
           <button 
-            className={`answer ${word.selected ? 'selected' : ''} ${getResultClass(word)}`} 
+            className={`answer ${word.selected ? 'selected' : ''} ${getResultClass(word.isCorrect)}`} 
             key={i}
             onClick={processAnswer}
             disabled={hasAnswered() ? true : false}
