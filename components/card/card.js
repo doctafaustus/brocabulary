@@ -9,14 +9,18 @@ export default function Card({ word, date }) {
 
   const wordObj = word || words.find(word => word.date === date);
 
+  function favorite(e) {
+    console.log('favorite');
+  }
+
   return (
     <div 
       className={`${styles.card} ${ saved ? 'saved' : '' }`}
       onDoubleClick={() => setSaved(!saved)}
     >
-      <div className="name-and-date">
+      <div className="name-and-favorite">
         <h2 className="name">{ wordObj.name }</h2>
-        <div className="date">{ wordObj.date }</div>
+        <div className="favorite" onClick={favorite}></div>
       </div>
       <div className="definition">{ wordObj.definition }</div>
       <div className="sentence" 
